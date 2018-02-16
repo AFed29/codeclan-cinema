@@ -11,14 +11,9 @@ class Ticket
   end
 
   def save()
-    sql = "INSERT INTO tickets (
-      customer_id,
-      film_id
-    )
-    VALUES (
-      $1, $2
-    )
-    RETURNING *;"
+    sql = "INSERT INTO tickets (customer_id, film_id)
+           VALUES ($1, $2)
+           RETURNING *;"
     values = [@customer_id, @film_id]
     ticket = SqlRunner.run(sql, values).first()
     @id = ticket['id']
@@ -26,9 +21,16 @@ class Ticket
 
   def update
     sql = "UPDATE tickets SET (customer_id, film_id)
-    = ($1, $2)
-    WHERE id = $3;"
+           = ($1, $2)
+           WHERE id = $3;"
     values = [@customer_id, @film_id, @id]
+    SqlRunner.run(sql, values)
+  end
+
+  def delete()
+    sql = "DELETE FROM tickets
+           WHERE id = $1;"
+    values = [@id]
     SqlRunner.run(sql, values)
   end
 
