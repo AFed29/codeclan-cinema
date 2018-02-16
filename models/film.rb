@@ -10,11 +10,12 @@ class Film
     @price = options['price'].to_f
   end
 
-  def number_of_customers()
-    sql = "SELECT * FROM tickets
-           WHERE film_id = $1"
+  def screenings()
+    sql = "SELECT * FROM screenings
+           WHERE film_id = $1;"
     values = [@id]
-    return SqlRunner.run(sql, values).count()
+    screenings = SqlRunner.run(sql, values)
+    return screenings.map { |screening| Screening.new(screening) }
   end
 
   def save()

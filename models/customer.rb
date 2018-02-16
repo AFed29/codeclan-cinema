@@ -15,12 +15,9 @@ class Customer
     update()
   end
 
-  def buy_ticket(film)
-    sql = "SELECT * FROM films
-           WHERE title = $1;"
-    values = [film.id]
-    SqlRunner.run(sql, values).first
-    Ticket.create_ticket(@id, film.id)
+  def buy_ticket(screening)
+    film = screening.return_film()
+    Ticket.create_ticket(@id, screening.id)
     remove_money(film.price)
   end
 
