@@ -13,10 +13,15 @@ class Customer
   def save()
     sql = "INSERT INTO customers (name, funds)
       VALUES ($1, $2 )
-      RETURNING *"
+      RETURNING *;"
     values = [@name, @funds]
-    customer  = SqlRunner.run(sql, values).first
+    customer  = SqlRunner.run(sql, values).first()
     @id = customer['id'].to_i
+  end
+
+  def Customer.delete_all()
+    sql = "DELETE FROM customers;"
+    SqlRunner.run(sql)
   end
 
 end
