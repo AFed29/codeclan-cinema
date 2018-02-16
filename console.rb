@@ -7,6 +7,7 @@ require_relative('models/screening.rb')
 
 Ticket.delete_all()
 Customer.delete_all()
+Screening.delete_all()
 Film.delete_all()
 
 
@@ -49,7 +50,6 @@ ticket2.save()
 ticket3.save()
 
 screening1 = Screening.new({
-  'screen' => 1,
   'start_time' => '20:15',
   'film_id' => film1.id
 })

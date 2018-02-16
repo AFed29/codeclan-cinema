@@ -11,7 +11,6 @@ CREATE TABLE films (
 
 CREATE TABLE screenings (
   id SERIAL4 PRIMARY KEY,
-  screen INT4 NOT NULL,
   start_time TIME NOT NULL,
   film_id INT8 REFERENCES films(id)
 );
