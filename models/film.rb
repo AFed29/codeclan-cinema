@@ -10,6 +10,13 @@ class Film
     @price = options['price'].to_f
   end
 
+  def number_of_customers()
+    sql = "SELECT * FROM tickets
+           WHERE film_id = $1"
+    values = [@id]
+    return SqlRunner.run(sql, values).count()
+  end
+
   def save()
     sql = "INSERT INTO films (title, price)
            VALUES ($1, $2)

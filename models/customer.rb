@@ -24,6 +24,13 @@ class Customer
     remove_money(film.price)
   end
 
+  def number_of_tickets()
+    sql = "SELECT * FROM tickets
+           WHERE customer_id = $1;"
+    values = [@id]
+    return SqlRunner.run(sql, values).count()
+  end
+
   def save()
     sql = "INSERT INTO customers (name, funds)
            VALUES ($1, $2 )
