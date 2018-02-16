@@ -12,11 +12,19 @@ class Film
 
   def save()
     sql = "INSERT INTO films (title, price)
-      VALUES ($1, $2)
-      RETURNING *;"
+           VALUES ($1, $2)
+           RETURNING *;"
     values = [@title, @price]
     film = SqlRunner.run(sql, values).first()
     @id = film['id']
+  end
+
+  def update()
+    sql = "UPDATE films SET (title, price)
+    = ($1, $2)
+    WHERE id = $3;"
+    values = [@title, @price, @id]
+    SqlRunner.run(sql, values)
   end
 
   def self.all()
