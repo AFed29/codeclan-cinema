@@ -1,7 +1,7 @@
 require_relative('../db/sql_runner.rb')
 
 class Film
-  attr_reader :idea
+  attr_reader :id
   attr_accessor :title, :price
 
   def initialize(options)
@@ -19,7 +19,7 @@ class Film
     @id = film['id']
   end
 
-  def Film.delete_all()
+  def self.delete_all()
     sql = "DELETE FROM films;"
     SqlRunner.run(sql)
   end
