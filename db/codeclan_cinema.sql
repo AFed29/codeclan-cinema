@@ -1,11 +1,19 @@
 DROP TABLE IF EXISTS tickets;
 DROP TABLE IF EXISTS customers;
+DROP TABLE IF EXISTS screenings;
 DROP TABLE IF EXISTS films;
 
 CREATE TABLE films (
   id SERIAL8 PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   price NUMERIC(4, 2) NOT NULL
+);
+
+CREATE TABLE screenings (
+  id SERIAL4 PRIMARY KEY,
+  screen INT4 NOT NULL,
+  start_time TIME NOT NULL,
+  film_id INT8 REFERENCES films(id)
 );
 
 CREATE TABLE customers (
