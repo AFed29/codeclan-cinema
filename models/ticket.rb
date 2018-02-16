@@ -10,6 +10,7 @@ class Ticket
     @film_id = options['film_id'].to_i
   end
 
+
   def save()
     sql = "INSERT INTO tickets (customer_id, film_id)
            VALUES ($1, $2)
@@ -32,6 +33,11 @@ class Ticket
            WHERE id = $1;"
     values = [@id]
     SqlRunner.run(sql, values)
+  end
+
+  def self.create_ticket(customer_id, film_id)
+    ticket = Ticket.new({ 'customer_id' => customer_id, 'film_id' => film_id })
+    ticket.save()
   end
 
   def self.all()

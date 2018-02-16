@@ -10,6 +10,20 @@ class Customer
     @funds = options['funds'].to_f
   end
 
+  def remove_money(amount)
+    @funds -= amount
+    update()
+  end
+
+  def buy_ticket(film)
+    sql = "SELECT * FROM films
+           WHERE title = $1;"
+    values = [film.id]
+    SqlRunner.run(sql, values).first
+    Ticket.create_ticket(@id, film.id)
+    remove_money(film.price)
+  end
+
   def save()
     sql = "INSERT INTO customers (name, funds)
            VALUES ($1, $2 )
