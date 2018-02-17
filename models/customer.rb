@@ -17,8 +17,11 @@ class Customer
 
   def buy_ticket(screening)
     film = screening.return_film()
-    Ticket.create_ticket(@id, screening.id)
-    remove_money(film.price)
+    if Ticket.create_ticket(@id, screening) != nil
+      remove_money(film.price)
+    else
+      return p "Sorry the film is full"
+    end
   end
 
   def number_of_tickets()

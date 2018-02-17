@@ -17,6 +17,11 @@ class Screening
     return SqlRunner.run(sql, values).count
   end
 
+  def check_if_screening_is_full
+    return true if (number_of_tickets() >= 5)
+    return false
+  end
+
   def return_film()
     sql = "SELECT * FROM films
            WHERE id = $1;"

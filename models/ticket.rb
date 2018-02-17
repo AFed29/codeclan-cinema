@@ -34,9 +34,13 @@ class Ticket
     SqlRunner.run(sql, values)
   end
 
-  def self.create_ticket(customer_id, screening_id)
-    ticket = Ticket.new({ 'customer_id' => customer_id, 'screening_id' => screening_id })
-    ticket.save()
+  def self.create_ticket(customer_id, screening)
+    if screening.check_if_screening_is_full == false
+      ticket = Ticket.new({ 'customer_id' => customer_id, 'screening_id' => screening.id })
+      ticket.save()
+    else
+      return nil
+    end
   end
 
   def self.all()
